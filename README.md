@@ -1,1 +1,3 @@
-# otus_java_professional
+# Java Developer. Professional
+
+Группа 2020-09
