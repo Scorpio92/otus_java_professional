@@ -1,4 +1,4 @@
-package ru.otus.hw1;
+package ru.otus;
 
 import com.google.common.hash.Hashing;
 

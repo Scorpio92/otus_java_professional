@@ -1,4 +1,4 @@
-package ru.otus.hw3;
+package ru.otus;
 
 import java.util.Collections;
 import java.util.Comparator;

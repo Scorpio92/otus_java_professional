@@ -1,4 +1,4 @@
-package ru.otus.hw3;
+package ru.otus;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ public class DIYarrayList<T> implements List<T> {
 
     public DIYarrayList(int size) {
         this.size = size;
-        items = new Object[]{};
+        items = new Object[size];
     }
 
     public DIYarrayList() {
@@ -55,18 +55,12 @@ public class DIYarrayList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
-        if (t == null) throw new IllegalArgumentException();
-        Object[] buf = null;
-        if (size > 0) {
-            buf = new Object[size];
-            System.arraycopy(items, 0, buf, 0, size);
-        }
+        Objects.requireNonNull(t, "null argument not supported!");
+        Object[] buf =  new Object[size + 1];
+        System.arraycopy(items, 0, buf, 0, size);
+        buf[size] = t;
+        items = buf;
         size++;
-        items = new Object[size];
-        if (buf != null) {
-            System.arraycopy(buf, 0, items, 0, size - 1);
-        }
-        items[size - 1] = t;
         return true;
     }
 
@@ -113,7 +107,7 @@ public class DIYarrayList<T> implements List<T> {
 
     @Override
     public T set(int index, T element) {
-        if (element == null) throw new IllegalArgumentException();
+        Objects.requireNonNull(element, "null argument not supported!");
         if (index < 0 || index > size - 1) throw new IndexOutOfBoundsException();
         T oldElement = (T) items[index];
         items[index] = element;
