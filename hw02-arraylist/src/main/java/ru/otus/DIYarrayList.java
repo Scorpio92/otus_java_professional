@@ -7,9 +7,8 @@ public class DIYarrayList<T> implements List<T> {
     private Object[] items;
     private int size;
 
-    public DIYarrayList(int size) {
-        this.size = size;
-        items = new Object[size];
+    public DIYarrayList(int capacity) {
+        items = new Object[capacity];
     }
 
     public DIYarrayList() {
@@ -56,10 +55,14 @@ public class DIYarrayList<T> implements List<T> {
     @Override
     public boolean add(T t) {
         Objects.requireNonNull(t, "null argument not supported!");
-        Object[] buf =  new Object[size + 1];
-        System.arraycopy(items, 0, buf, 0, size);
-        buf[size] = t;
-        items = buf;
+        if (items.length == size) {
+            Object[] buf = new Object[size + 1];
+            System.arraycopy(items, 0, buf, 0, size);
+            buf[size] = t;
+            items = buf;
+        } else {
+            items[size] = t;
+        }
         size++;
         return true;
     }
