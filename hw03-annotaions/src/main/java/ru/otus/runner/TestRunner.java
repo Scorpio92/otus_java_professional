@@ -20,11 +20,13 @@ public class TestRunner {
         Objects.requireNonNull(c, "Test class must not be null!");
 
         Method[] beforeMethods = findAnnotatedMethods(c, Before.class);
-        if (beforeMethods.length > 1)
+        if (beforeMethods.length > 1) {
             throw new RuntimeException("Only one method must be annotated with @Before annotation");
+        }
         Method[] afterMethods = findAnnotatedMethods(c, After.class);
-        if (afterMethods.length > 1)
+        if (afterMethods.length > 1) {
             throw new RuntimeException("Only one method must be annotated with @After annotation");
+        }
         Method[] testMethods = findAnnotatedMethods(c, Test.class);
         if (testMethods.length == 0) throw new RuntimeException("Not found @Test annotation");
 

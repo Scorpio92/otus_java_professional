@@ -32,12 +32,18 @@ public class Tests {
     }
 
     @Test
+    public void testArrayAdd() {
+        DEFAULT_TEST_LIST.forEach(integer -> arrayList.add(integer));
+        TestUtils.assertListSize(arrayList, DEFAULT_TEST_LIST.size());
+    }
+
+    @Test
     public void testArrayCopy() {
         DEFAULT_TEST_LIST.forEach(integer -> arrayList.add(integer));
         DIYarrayList<Integer> integers = new DIYarrayList<>();
         DEFAULT_TEST_LIST.forEach(integer -> integers.add(0));
         Collections.copy(integers, arrayList);
-        TestUtils.assertListSize(integers, DEFAULT_TEST_LIST.size());
+        TestUtils.assertListsEqual(arrayList, integers);
     }
 
     @After
