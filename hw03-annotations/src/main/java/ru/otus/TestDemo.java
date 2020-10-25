@@ -1,6 +1,6 @@
-package main.java.ru.otus;
+package ru.otus;
 
-import main.java.ru.otus.runner.TestRunner;
+import ru.otus.runner.TestRunner;
 
 public class TestDemo {
 

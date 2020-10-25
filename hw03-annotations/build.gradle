@@ -5,4 +5,6 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_15
 targetCompatibility = JavaVersion.VERSION_15
 
-dependencies {}
+dependencies {
+    implementation project(':hw02-arraylist')
+}

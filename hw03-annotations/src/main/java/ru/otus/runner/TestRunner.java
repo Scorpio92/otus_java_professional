@@ -1,8 +1,6 @@
-package main.java.ru.otus.runner;
+package ru.otus.runner;
 
-import main.java.ru.otus.annotations.After;
-import main.java.ru.otus.annotations.Before;
-import main.java.ru.otus.annotations.Test;
+import ru.otus.annotations.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;

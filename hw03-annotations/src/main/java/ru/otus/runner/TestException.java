@@ -1,4 +1,4 @@
-package main.java.ru.otus.runner;
+package ru.otus.runner;
 
 public final class TestException extends RuntimeException {
 

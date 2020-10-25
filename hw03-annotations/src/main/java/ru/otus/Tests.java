@@ -1,10 +1,9 @@
-package main.java.ru.otus;
+package ru.otus;
 
-import main.java.ru.otus.annotations.After;
-import main.java.ru.otus.annotations.Before;
-import main.java.ru.otus.annotations.Test;
-import main.java.ru.otus.runner.TestUtils;
-import ru.otus.DIYarrayList;
+import ru.otus.annotations.After;
+import ru.otus.annotations.Before;
+import ru.otus.annotations.Test;
+import ru.otus.runner.TestUtils;
 
 import java.util.Arrays;
 import java.util.Collections;
