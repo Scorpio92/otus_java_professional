@@ -62,17 +62,21 @@ public class GcTest {
         private final long beginTime = System.currentTimeMillis();
         private final AtomicInteger youngCounter = new AtomicInteger();
         private final AtomicInteger oldCounter = new AtomicInteger();
-        private final AtomicInteger youngDurationSum = new AtomicInteger();
-        private final AtomicInteger oldDurationSum = new AtomicInteger();
+        private final AtomicInteger youngMaxDuration = new AtomicInteger();
+        private final AtomicInteger oldMaxDuration = new AtomicInteger();
 
         public void register(String event, int duration) {
             String s = event.toLowerCase();
             if (s.contains("minor")) { ;
-                youngDurationSum.addAndGet(duration);
+                if (youngMaxDuration.get() < duration) {
+                    youngMaxDuration.set(duration);
+                }
                 System.out.printf("Young event [%s], duration [%s] ms\n", youngCounter.incrementAndGet(), duration);
             }
             if (s.contains("major")) { ;
-                oldDurationSum.addAndGet(duration);
+                if (oldMaxDuration.get() < duration) {
+                    oldMaxDuration.set(duration);
+                }
                 System.out.printf("Old event [%s], duration [%s] ms\n", oldCounter.incrementAndGet(), duration);
             }
         }
@@ -80,13 +84,11 @@ public class GcTest {
         public void conclusion() {
             long endTimeMs = (System.currentTimeMillis() - beginTime);
             System.out.println("\n");
-            if (youngDurationSum.get() > 0) {
-                int yd = youngDurationSum.get() / youngCounter.get();
-                System.out.printf("Young counts: %s, avg duration: %s ms\n", youngCounter.get(), yd);
+            if (youngCounter.get() > 0) {
+                System.out.printf("Young counts: %s, max duration: %s ms\n", youngCounter.get(), youngMaxDuration.get());
             }
-            if (oldDurationSum.get() > 0) {
-                int od = oldDurationSum.get() / oldCounter.get();
-                System.out.printf("Old counts: %s, avg duration: %s ms\n", oldCounter.get(), od);
+            if (oldCounter.get() > 0) {
+                System.out.printf("Old counts: %s, max duration: %s ms\n", oldCounter.get(), oldMaxDuration.get());
             }
             System.out.printf("Work time [%s] sec\n", endTimeMs / 1000);
         }
