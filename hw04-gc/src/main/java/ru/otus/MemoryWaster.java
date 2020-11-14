@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MemoryWaster implements MemoryWasterMBean {
 
-    private List<String> list = new ArrayList<>();
+    private List<byte[]> list = new ArrayList<>();
 
     private int loopCount;
     private int size;
@@ -14,14 +14,14 @@ public class MemoryWaster implements MemoryWasterMBean {
 
     void run() throws InterruptedException {
         for (int idx = 0; idx < loopCount; idx++) {
-            System.out.println("iteration: " + idx);
             for (int i = 0; i < size; i++) {
-                list.add(Integer.valueOf(i).toString().concat(String.valueOf(System.currentTimeMillis())));
+                list.add(new byte[1024]);
             }
             Thread.sleep(pauseDuration);
             for (int i = 0; i < size * removePercent/100; i++) {
                 list.remove(i);
             }
+            System.out.println("iterations: " + (idx + 1));
         }
     }
 

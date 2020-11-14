@@ -25,10 +25,10 @@ public class GcTest {
         ObjectName name = new ObjectName("ru.otus:type=basic");
 
         MemoryWaster mBean = new MemoryWaster();
-        mBean.setLoopCount(1000);
-        mBean.setSize(10000);
-        mBean.setPauseDuration(1);
-        mBean.setRemovePercent(5);
+        mBean.setLoopCount(100000);
+        mBean.setSize(192);
+        mBean.setPauseDuration(10);
+        mBean.setRemovePercent(50);
         mbs.registerMBean(mBean, name);
         mBean.run();
     }
