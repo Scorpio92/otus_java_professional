@@ -12,8 +12,8 @@ public final class HistoryElement {
 
     public HistoryElement(int id, Message old, Message actual) {
         this.id = id;
-        this.old = old;
-        this.actual = actual;
+        this.old = old.toBuilder().build();
+        this.actual = actual.toBuilder().build();
     }
 
     public int id() {

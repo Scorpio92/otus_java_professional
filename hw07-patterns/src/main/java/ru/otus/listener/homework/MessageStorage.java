@@ -2,11 +2,9 @@ package ru.otus.listener.homework;
 
 import ru.otus.model.Message;
 
-import java.util.Collection;
-
-public interface IMessageStorage {
+public interface MessageStorage {
 
     void save(Message oldMsg, Message newMsg);
 
-    Collection<HistoryElement> elements();
+    Iterable<HistoryElement> elements();
 }

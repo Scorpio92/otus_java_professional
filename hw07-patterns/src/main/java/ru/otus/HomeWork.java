@@ -3,7 +3,7 @@ package ru.otus;
 import ru.otus.handler.ComplexProcessor;
 import ru.otus.listener.ListenerPrinter;
 import ru.otus.listener.homework.HistoryListener;
-import ru.otus.listener.homework.IMessageStorage;
+import ru.otus.listener.homework.MessageStorage;
 import ru.otus.listener.homework.MemoryMessageStorage;
 import ru.otus.model.Message;
 import ru.otus.model.ObjectForMessage;
@@ -12,6 +12,7 @@ import ru.otus.processor.ProcessorUpperField10;
 import ru.otus.processor.homework.CrashProcessor;
 import ru.otus.processor.homework.ReplaceFieldsProcessor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class HomeWork {
@@ -29,9 +30,14 @@ public class HomeWork {
            по аналогии с Demo.class
            из элеменов "to do" создать new ComplexProcessor и обработать сообщение
          */
-        IMessageStorage messageStorage = new MemoryMessageStorage();
+        MessageStorage messageStorage = new MemoryMessageStorage();
 
-        var processors = List.of(new ProcessorConcatFields(), new ProcessorUpperField10(), new ReplaceFieldsProcessor(), new CrashProcessor());
+        var processors = List.of(
+                new ProcessorConcatFields(),
+                new ProcessorUpperField10(),
+                new ReplaceFieldsProcessor(),
+                new CrashProcessor(LocalDateTime.now())
+        );
 
         var complexProcessor = new ComplexProcessor(processors, Throwable::printStackTrace);
         var listenerPrinter = new ListenerPrinter();

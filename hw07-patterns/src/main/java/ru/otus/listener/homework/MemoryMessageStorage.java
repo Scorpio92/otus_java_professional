@@ -3,11 +3,10 @@ package ru.otus.listener.homework;
 import ru.otus.model.Message;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class MemoryMessageStorage implements IMessageStorage {
+public class MemoryMessageStorage implements MessageStorage {
 
     private final List<HistoryElement> elements = new ArrayList<>();
 
@@ -17,7 +16,7 @@ public class MemoryMessageStorage implements IMessageStorage {
     }
 
     @Override
-    public Collection<HistoryElement> elements() {
+    public Iterable<HistoryElement> elements() {
         return Collections.unmodifiableCollection(elements);
     }
 }

@@ -5,9 +5,9 @@ import ru.otus.model.Message;
 
 public class HistoryListener implements Listener {
 
-    private final IMessageStorage messageStorage;
+    private final MessageStorage messageStorage;
 
-    public HistoryListener(IMessageStorage messageStorage) {
+    public HistoryListener(MessageStorage messageStorage) {
         this.messageStorage = messageStorage;
     }
 
