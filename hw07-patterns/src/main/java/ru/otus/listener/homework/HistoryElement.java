@@ -1,7 +1,10 @@
 package ru.otus.listener.homework;
 
 import ru.otus.model.Message;
+import ru.otus.model.ObjectForMessage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public final class HistoryElement {
@@ -12,8 +15,8 @@ public final class HistoryElement {
 
     public HistoryElement(int id, Message old, Message actual) {
         this.id = id;
-        this.old = old.toBuilder().build();
-        this.actual = actual.toBuilder().build();
+        this.old = copy(old);
+        this.actual = copy(actual);
     }
 
     public int id() {
@@ -48,5 +51,16 @@ public final class HistoryElement {
                 ", old=" + old +
                 ", actual=" + actual +
                 '}';
+    }
+
+    private Message copy(Message source) {
+        Message.Builder builder = source.toBuilder();
+        if (source.getField13() != null && source.getField13().getData() != null) {
+            List<String> data = new ArrayList<>(source.getField13().getData());
+            ObjectForMessage ofm = new ObjectForMessage();
+            ofm.setData(data);
+            builder.field13(ofm);
+        }
+        return builder.build();
     }
 }

@@ -36,7 +36,7 @@ public class HomeWork {
                 new ProcessorConcatFields(),
                 new ProcessorUpperField10(),
                 new ReplaceFieldsProcessor(),
-                new CrashProcessor(LocalDateTime.now())
+                new CrashProcessor(LocalDateTime::now)
         );
 
         var complexProcessor = new ComplexProcessor(processors, Throwable::printStackTrace);

@@ -23,7 +23,7 @@ public class CrashProcessorTest {
 
         Message message = mock(Message.class);
         await().until(() -> predicate.test(LocalDateTime.now()));
-        Processor processor = new CrashProcessor(LocalDateTime.now());
+        Processor processor = new CrashProcessor(LocalDateTime::now);
         assertThatExceptionOfType(EvenSecondException.class).isThrownBy(() -> processor.process(message));
     }
 }

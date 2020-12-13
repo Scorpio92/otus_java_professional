@@ -8,16 +8,18 @@ import java.util.function.Predicate;
 
 public class CrashProcessor implements Processor {
 
-    private final LocalDateTime dateTime;
+    private final DateTimeProvider dateTimeProvider;
     private final Predicate<LocalDateTime> condition = dt -> dt.getSecond() % 2 == 0;
 
-    public CrashProcessor(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public CrashProcessor(DateTimeProvider dateTimeProvider) {
+        this.dateTimeProvider = dateTimeProvider;
     }
 
     @Override
     public Message process(Message message) {
-        if (condition.test(dateTime)) throw new EvenSecondException(dateTime.getSecond());
+        if (condition.test(dateTimeProvider.getDate())) {
+            throw new EvenSecondException(dateTimeProvider.getDate().getSecond());
+        }
         return message;
     }
 }
