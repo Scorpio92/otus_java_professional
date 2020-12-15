@@ -10,4 +10,5 @@ dependencies {
     implementation 'javax.json:javax.json-api'
     implementation 'org.glassfish:javax.json'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.reflections:reflections:0.9.12'
 }

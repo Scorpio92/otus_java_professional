@@ -1,6 +1,7 @@
 package ru.otus;
 
 import com.google.gson.Gson;
+import ru.otus.base.MyGson;
 
 import java.util.Arrays;
 
