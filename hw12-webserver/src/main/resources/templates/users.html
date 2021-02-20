@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Пользователи</title>
+    <script>
+        function createUser() {
+            const userLoginTextBox = document.getElementById('userLoginTextBox');
+            const userPassTextBox = document.getElementById('userPassTextBox');
+            const userNameTextBox = document.getElementById('userNameTextBox');
+            const userAgeTextBox = document.getElementById('userAgeTextBox');
+            const userCreateResult = document.getElementById('userCreateResult');
+            const login = userLoginTextBox.value;
+            const pass = userPassTextBox.value;
+            const name = userNameTextBox.value;
+            const age = userAgeTextBox.value;
+
+            let user = {
+                login: login,
+                password: pass,
+                name: name,
+                age: age
+            };
+
+            fetch('/api/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(user)
+            })
+                .then(response => response.json())
+                .then(result => userCreateResult.innerHTML = JSON.stringify('Created user with id: ' + result));
+        }
+    </script>
+</head>
+
+<body>
+<h4>Создать пользователя</h4>
+<input type="text" id = "userLoginTextBox" placeholder="Введите логин пользователя">
+<input type="text" id = "userPassTextBox" placeholder="Введите пароль пользователя">
+<input type="text" id = "userNameTextBox" placeholder="Введите имя пользователя">
+<input type="text" id = "userAgeTextBox" placeholder="Введите возраст пользователя">
+<button onclick="createUser()">Создать</button>
+<pre id = "userCreateResult"></pre>
+
+<h4>Пользователи</h4>
+<ul>
+    <#list users as item>
+    <li>${item}</li>
+</#list>
+</ul>
+
+</body>
+</html>
