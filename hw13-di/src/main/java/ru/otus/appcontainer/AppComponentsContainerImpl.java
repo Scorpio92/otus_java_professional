@@ -28,24 +28,20 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
         checkConfigClass(configClass);
 
         Object config = configClass.getConstructor().newInstance();
-        Collection<Method> methods = findAllBeanMethods(configClass);
-        Set<Integer> orders = new TreeSet<>(findAllPossibleOrders(methods));
-        orders.forEach(order -> methods.stream()
-                .filter(method -> getComponentByMethod(method).order() == order)
-                .forEach(method -> {
-                    String componentName = getComponentByMethod(method).name();
-                    Object[] methodArguments = Arrays.stream(method.getParameterTypes())
-                            .map((Function<Class<?>, Object>) AppComponentsContainerImpl.this::getAppComponent)
-                            .toArray();
-                    Object bean;
-                    try {
-                        bean = method.invoke(config, methodArguments);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Failed to get bean", e);
-                    }
-                    appComponents.add(bean);
-                    appComponentsByName.put(componentName, bean);
-                }));
+        findAllBeanMethods(configClass).forEach(method -> {
+            String componentName = getComponentByMethod(method).name();
+            Object[] methodArguments = Arrays.stream(method.getParameterTypes())
+                    .map((Function<Class<?>, Object>) AppComponentsContainerImpl.this::getAppComponent)
+                    .toArray();
+            Object bean;
+            try {
+                bean = method.invoke(config, methodArguments);
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to get bean", e);
+            }
+            appComponents.add(bean);
+            appComponentsByName.put(componentName, bean);
+        });
     }
 
     private void checkConfigClass(Class<?> configClass) {
@@ -61,7 +57,7 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
                     Class<?> c = o.getClass();
                     return c == componentClass
                             || c.getSuperclass() == componentClass
-                            || Arrays.stream(c.getInterfaces()).anyMatch(aClass -> aClass == componentClass);
+                            || componentClass.isAssignableFrom(c);
                 })
                 .map(o -> (C) o)
                 .findFirst()
@@ -78,14 +74,9 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
     private Collection<Method> findAllBeanMethods(Class<?> configClass) {
         return Arrays.stream(configClass.getMethods())
                 .filter(method -> Arrays.stream(method.getDeclaredAnnotations()).count() == 1)
-                .filter(method -> Arrays.stream(method.getDeclaredAnnotations()).anyMatch(a -> a.annotationType() == AppComponent.class))
+                .filter(method -> method.isAnnotationPresent(AppComponent.class))
+                .sorted(Comparator.comparingInt(m -> getComponentByMethod(m).order()))
                 .collect(Collectors.toList());
-    }
-
-    private Set<Integer> findAllPossibleOrders(Collection<Method> methods) {
-        return methods.stream()
-                .map(method -> getComponentByMethod(method).order())
-                .collect(Collectors.toSet());
     }
 
     private AppComponent getComponentByMethod(Method method) {
