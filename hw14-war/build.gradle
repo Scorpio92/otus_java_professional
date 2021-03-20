@@ -15,8 +15,6 @@ dependencies {
 
         implementation("com.google.code.gson:gson:${Versions.gson}")
 
-        implementation("org.freemarker:freemarker:${Versions.freemarker}")
-
         implementation("org.javassist:javassist:3.24.0-GA")
 
         implementation("org.springframework:spring-context")
