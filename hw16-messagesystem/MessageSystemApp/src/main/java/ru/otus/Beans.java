@@ -68,7 +68,7 @@ public class Beans {
         return new CallbackRegistryImpl();
     }
 
-    @Bean()
+    @Bean
     @Scope(value = "prototype")
     public HandlersStore requestHandlerDatabaseStore() {
         return new HandlersStoreImpl();
