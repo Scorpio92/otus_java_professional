@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MessageSystem App</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/app.js"></script>
+</head>
+<body>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div class="container" id="main-content">
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped" id="conversation">
+                <thead>
+                <tr>
+                    <th><h4>Пользователи</h4></th>
+                </tr>
+                </thead>
+                <tbody id="users"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <h4>Создать пользователя</h4>
+    <input id="userLoginTextBox" placeholder="логин пользователя" type="text">
+    <input id="userPassTextBox" placeholder="пароль пользователя" type="text">
+    <input id="userNameTextBox" placeholder="имя пользователя" type="text">
+    <input id="userAgeTextBox" placeholder="возраст пользователя" type="text">
+    <button class="btn btn-default" id="create" type="submit">Создать</button>
+
+</div>
+</body>
+</html>
